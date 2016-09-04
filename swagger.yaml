@@ -77,6 +77,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/Group'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         401:
           description: Unauthorized
           schema:
@@ -88,6 +92,10 @@ paths:
         404:
           description: Not found
           schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Conflict
+          schema: 
             $ref: '#/definitions/Error'
         default:
           description: Unexpected error
@@ -108,6 +116,10 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/Group'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         401:
           description: Unauthorized
           schema:
@@ -135,6 +147,26 @@ paths:
       tags:
         - Groups
       responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Group'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Conflict
+          schema:
+            $ref: '#/definitions/Error'
         default:
           description: Unexpected error
           schema:
