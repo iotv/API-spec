@@ -207,7 +207,9 @@ paths:
         200:
           description: Success
           schema:
-            $ref: '#/definitions/Group'
+            type: array
+            items:
+              $ref: '#/definitions/Permission'
         404:
           description: Not found
           schema:
@@ -223,7 +225,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Group'
+            $ref: '#/definitions/Permission'
       tags:
         - Groups
       responses:
@@ -304,11 +306,11 @@ paths:
     post:
       summary: Create group video
       parameters:
-        - name: new group
+        - name: new group video
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Group'
+            $ref: '#/definitions/Video'
       tags:
         - Groups
         - Videos
@@ -439,6 +441,16 @@ definitions:
         description: A list of fields that the API believes is causing the error
 
   Group:
+    type: object
+    properties:
+      id:
+        type: string
+        format: UUID
+      name:
+        type: string
+        format: UTF-8
+
+  Permission:
     type: object
     properties:
       id:
