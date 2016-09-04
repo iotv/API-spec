@@ -16,9 +16,9 @@ basePath: /v1
 produces:
   - application/json
 paths:
-  /groups/{groupname}:
+  /groups/{name}:
     parameters:
-      - name: groupname
+      - name: name
         in: path
         required: true
         type: string
@@ -112,10 +112,8 @@ paths:
       tags:
         - Groups
       responses:
-        200:
-          description: Success
-          schema:
-            $ref: '#/definitions/Group'
+        201:
+          description: Created
         400:
           description: Bad request
           schema:
@@ -171,8 +169,173 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+ 
+  /groups/{name}/permissions:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        type: string
+    delete:
+      summary: Delete group
+      tags:
+        - Groups
+      responses:
+        204:
+          description: Success (no content)
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Get group
+      tags:
+        - Groups
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Group'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create group
+      parameters:
+        - name: new group
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Group'
+      tags:
+        - Groups
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Conflict
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /groups/{name}/videos:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        type: string
+    delete:
+      summary: Delete all videos on a group
+      tags:
+        - Groups
+        - Videos
+        - Admin
+      responses:
+        204:
+          description: Success (no content)
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Get group videos
+      tags:
+        - Groups
+        - Videos
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Video'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create group video
+      parameters:
+        - name: new group
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Group'
+      tags:
+        - Groups
+        - Videos
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Conflict
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
       
-
   /users/{username}:
     get:
       summary: User profile information
