@@ -16,6 +16,7 @@ basePath: /v1
 produces:
   - application/json
 paths:
+  # /groups
   /groups/{name}:
     parameters:
       - name: name
@@ -337,7 +338,57 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+            
+  # /permissions
+  /permissions/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+        format: UUID
+    delete:
+      summary: Delete permission
+      tags:
+        - Permissions
+      responses:
+        204:
+          description: Success (no content)
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden (or not found)
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Get permission
+      tags:
+        - Permissions
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Permission'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not Found (or forbidden)
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
       
+  # /users
   /users/{username}:
     get:
       summary: User profile information
@@ -454,6 +505,9 @@ definitions:
     type: object
     properties:
       id:
+        type: string
+        format: UUID
+      group_id:
         type: string
         format: UUID
       name:
