@@ -462,6 +462,7 @@ paths:
           description: Unknown error
           schema:
             $ref: '#/definitions/Error'
+            
   /permissions/{id}:
     parameters:
       - name: id
@@ -510,7 +511,6 @@ paths:
           schema:
             $ref: '#/definitions/Error'
       
-  # /users
   /users/{username}:
     get:
       summary: User profile information
