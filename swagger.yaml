@@ -29,34 +29,60 @@ paths:
             $ref: '#/definitions/Group'
       responses:
         201:
-          description: |
-            Created. The resource was created and can now be accessed at
-            the URL provided in the "Location" header
-          headers:
-            Location:
-              description: The URL of the successfully created group
-              type: string
-              format: URL
+          $ref: '#/responses/Created'
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/Error'
+          $ref: '#/responses/BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Error'
+          $ref: '#/responses/Unauthorized'
         403:
-          description: Forbidden
+          description: |
+            **Forbidden**. The group was not created because the authenticated
+            user does not have permissions to create it.
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         409:
-          description: Conflict
+          description: |
+            **Conflict**. The group was not created because one or more of its
+            fields conflicts with a unique constraint for groups. The problematic
+            fields are named in the "fields" key of the response.
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
+        415:
+          description: |
+            **Unsupported media type**. The group was not created because the
+            request used an unsupported media type.
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        422:
+          description: |
+            **Unprocessable entity**. The group was not created because the
+            request had extraneous, missing or improperly-typed fields. The
+            problematic fields are named in the "fields" key of the response.
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        429:
+          description: |
+            **Too many requests**. The group was not created because the requesting
+            client has exceeded the rate limit of the API.
+          headers:
+            X-RateLimit-Limit:
+              description: The rate limit ceiling for that particular call
+              type: number
+            X-RateLimit-Remaining:
+              description: The rate limit remaining in a 15 minute window.
+              type: number
+            X-RateLimit-Reset:
+              description: The UTC Unix epcoh time when the current rate limit window ends and rates reset.
+              type: number
+              format: UTC Unix epoch
+          schema:
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
+          description: |
+            **Unexpected error**. The group was not created because the server
+            or network experienced some other error. This error may be handled
+            by a gateway, reverse proxy or load balancer and served as a **5xx**
+            response.
   
   /groups/{name}:
     parameters:
@@ -74,19 +100,31 @@ paths:
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
-        default:
-          description: Unexpected error
+            $ref: '#/definitions/ServerResponse'
+        415:
+          description: Unsupported media type
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
+        422:
+          description: Unprocessable entity
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        429:
+          description: Too many requests
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/ServerResponse'
     get:
       summary: Get group
       tags:
@@ -99,11 +137,11 @@ paths:
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     patch:
       summary: Partially update group
       parameters:
@@ -122,27 +160,27 @@ paths:
         400:
           description: Bad request
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         409:
           description: Conflict
           schema: 
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     post:
       summary: Create group
       parameters:
@@ -164,23 +202,23 @@ paths:
         400:
           description: Bad request
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         409:
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     put:
       summary: Update group
       parameters:
@@ -199,23 +237,23 @@ paths:
         400:
           description: Bad request
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         409:
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
  
   /groups/{name}/permissions:
     parameters:
@@ -233,19 +271,19 @@ paths:
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     get:
       summary: Get group
       tags:
@@ -260,11 +298,11 @@ paths:
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     post:
       summary: Create group
       parameters:
@@ -281,23 +319,23 @@ paths:
         400:
           description: Bad request
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         409:
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
             
   /groups/{name}/videos:
     parameters:
@@ -317,19 +355,19 @@ paths:
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     get:
       summary: Get group videos
       tags:
@@ -345,11 +383,11 @@ paths:
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     post:
       summary: Create group video
       parameters:
@@ -367,23 +405,23 @@ paths:
         400:
           description: Bad request
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         409:
           description: Conflict
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
             
   /groups/{name}/users:
     parameters:
@@ -407,11 +445,11 @@ paths:
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unknown error
+          description: Unknown Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     post:
       summary: Add a user to a group
       tags:
@@ -424,19 +462,19 @@ paths:
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         404:
           description: Not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unknown error
+          description: Unknown Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
 
   /permissions:
     post:
@@ -449,19 +487,19 @@ paths:
         400:
           description: Bad request
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unknown error
+          description: Unknown Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
             
   /permissions/{id}:
     parameters:
@@ -480,15 +518,15 @@ paths:
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         403:
           description: Forbidden (or not found)
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
     get:
       summary: Get permission
       tags:
@@ -501,15 +539,15 @@ paths:
         401:
           description: Unauthorized
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         404:
           description: Not Found (or forbidden)
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
       
   /users/{username}:
     get:
@@ -532,11 +570,11 @@ paths:
         404:
           description: User not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
   
   /users/{username}/videos:
     get:
@@ -562,11 +600,11 @@ paths:
         404:
           description: User not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
             
   /users/{username}/groups:
     get:
@@ -590,28 +628,67 @@ paths:
         404:
           description: User not found
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
         default:
-          description: Unexpected error
+          description: Unexpected Error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ServerResponse'
+responses:
+  Created:
+    description: |
+      **Created**. The resource was created and can now be accessed at
+      the URL provided in the "Location" header
+    headers:
+      Location:
+        description: The URL of the successfully created resource
+        type: string
+        format: URL
+    schema:
+      $ref: '#/definitions/ServerResponse'
+      
+  BadRequest:
+    description: |
+      **Bad request**. The resource was not created because of a syntax
+      error in the request
+    schema:
+      $ref: '#/definitions/ServerResponse'
+      
+  Unauthorized:
+    description: |
+      **Unauthorized**. The resource was not created because authentication
+      was not provided but is required.
+    headers:
+      WWW-Authenticate:
+        description: The authentication scheme to use to access the entity
+        type: string
+        format: UTF-8
+    schema:
+      $ref: '#/definitions/ServerResponse'
 
 definitions:
-  Error:
+  ServerResponse:
     type: object
+    required:
+      - code
+      - message
     properties:
       code:
         type: number
-        format: number
-        description: A serialized representation of the HTTP error code returned in the header
+        format: HTTP response code
+        description: A serialized representation of the HTTP response code returned in the header
       message:
         type: string
-        description: A human-readable message describing the reason for the error
+        format: UTF-8
+        description: A human-readable message describing the reason for the Error
       fields:
         type: array
         items: 
           type: string
-        description: A list of fields that the API believes is causing the error
+        description: A list of fields that the API believes is causing the Error
+      location:
+        type: string
+        format: URL
+        description: The URL location of the created resource
 
   Group:
     type: object
@@ -652,3 +729,4 @@ definitions:
       id:
         type: string
         format: UUID
+    
