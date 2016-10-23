@@ -503,6 +503,7 @@ paths:
           $ref: '#/responses/429TooManyRequests'
         default:
           $ref: '#/responses/5xxDefault'
+
   /videos/{id}:
     parameters:
       - name: id
@@ -623,6 +624,81 @@ paths:
         default:
           $ref: '#/responses/5xxDefault'
 
+  /videos/{id}/add-ons:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+        format: UUID
+    delete:
+      summary: Delete all add-ons for a video
+      description: |
+        Delete all add-ons for a video
+      tags:
+        - Videos
+      responses:
+        204:
+          $ref: '#/responses/204NoContent'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+    get:
+      summary: Get all add-ons for a video
+      description: |
+        Get all add-ons for a video
+      tags:
+        - Videos
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AddOn'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+    post:
+      summary: Create an add-on
+      description: |
+        Create an add-on and add it to a video
+      tags:
+        - Videos
+      responses:
+        201:
+          $ref: '#/responses/201Created'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+          
 
 responses:
   201Created:
