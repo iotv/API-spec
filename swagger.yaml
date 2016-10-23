@@ -698,7 +698,7 @@ paths:
           $ref: '#/responses/429TooManyRequests'
         default:
           $ref: '#/responses/5xxDefault'
-          
+
 
 responses:
   201Created:
@@ -835,6 +835,13 @@ definitions:
         type: string
         format: URL
         description: The URL location of the created resource
+
+  AddOn:
+    type: object
+    properties:
+      id:
+        type: string
+        format: UUID
 
   Group:
     type: object
