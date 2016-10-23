@@ -484,6 +484,7 @@ paths:
           in: header
           required: true
           type: string
+          default: bytes 0-*/*
       tags:
         - Videos
       responses:
@@ -564,6 +565,7 @@ paths:
           in: header
           required: true
           type: string
+          default: bytes 0-*/*
       tags:
         - Videos
       responses:
@@ -600,6 +602,7 @@ paths:
           in: header
           required: true
           type: string
+          default: bytes 0-*/*
       tags:
         - Videos
       responses:
