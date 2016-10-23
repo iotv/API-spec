@@ -633,6 +633,68 @@ paths:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/ServerResponse'
+            
+  /videos:
+    patch:
+      summary: Partially updates a video
+      description: |
+        ### Note: "Try this operation" will not work.
+      consumes:
+        - multipart/related
+        - application/json
+        - video/mp4
+      parameters:
+        - name: Content-Range
+          in: header
+          required: true
+          type: string
+      tags:
+        - Videos
+      responses:
+        200:
+          description: Success
+    post:
+      summary: Creates a video
+      description: |
+        ### Note: "Try this operation" will not work.
+      consumes:
+        - multipart/related
+        - application/json
+        - video/mp4
+      parameters:
+        - name: MultipartVideoRequest
+          in: body
+          required: true
+          schema:
+            type: string
+            format: binary
+        - name: Content-Range
+          in: header
+          required: true
+          type: string
+      tags:
+        - Videos
+      responses:
+        201:
+          description: Created
+    put:
+      summary: Partially updates a video
+      description: |
+        ### Note: "Try this operation" will not work.
+      consumes:
+        - multipart/related
+        - application/json
+        - video/mp4
+      parameters:
+        - name: Content-Range
+          in: header
+          required: true
+          type: string
+      tags:
+        - Videos
+      responses:
+        200:
+          description: Success
 responses:
   Created:
     description: |
