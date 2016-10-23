@@ -18,7 +18,7 @@ paths:
     post:
       summary: Create group
       description: |
-        Create a new video production group. 
+        Create a new video production group.
       tags:
         - Groups
       parameters:
@@ -29,61 +29,24 @@ paths:
             $ref: '#/definitions/Group'
       responses:
         201:
-          $ref: '#/responses/Created'
+          $ref: '#/responses/201Created'
         400:
-          $ref: '#/responses/BadRequest'
+          $ref: '#/responses/400BadRequest'
         401:
-          $ref: '#/responses/Unauthorized'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: |
-            **Forbidden**. The group was not created because the authenticated
-            user does not have permissions to create it.
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         409:
-          description: |
-            **Conflict**. The group was not created because one or more of its
-            fields conflicts with a unique constraint for groups. The problematic
-            fields are named in the "fields" key of the response.
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/409Conflict'
         415:
-          description: |
-            **Unsupported media type**. The group was not created because the
-            request used an unsupported media type.
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/415UnsupportedMediaType'
         422:
-          description: |
-            **Unprocessable entity**. The group was not created because the
-            request had extraneous, missing or improperly-typed fields. The
-            problematic fields are named in the "fields" key of the response.
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/422UnprocessableEntity'
         429:
-          description: |
-            **Too many requests**. The group was not created because the requesting
-            client has exceeded the rate limit of the API.
-          headers:
-            X-RateLimit-Limit:
-              description: The rate limit ceiling for that particular call
-              type: number
-            X-RateLimit-Remaining:
-              description: The rate limit remaining in a 15 minute window.
-              type: number
-            X-RateLimit-Reset:
-              description: The UTC Unix epcoh time when the current rate limit window ends and rates reset.
-              type: number
-              format: UTC Unix epoch
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/429TooManyRequests'
         default:
-          description: |
-            **Unexpected error**. The group was not created because the server
-            or network experienced some other error. This error may be handled
-            by a gateway, reverse proxy or load balancer and served as a **5xx**
-            response.
-  
+          $ref: '#/responses/5xxDefault'
+
   /groups/{name}:
     parameters:
       - name: name
@@ -96,35 +59,21 @@ paths:
         - Groups
       responses:
         204:
-          description: Success (no content)
+          $ref: '#/responses/204NoContent'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         415:
-          description: Unsupported media type
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/415UnsupportedMediaType'
         422:
-          description: Unprocessable entity
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/422UnprocessableEntity'
         429:
-          description: Too many requests
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/429TooManyRequests'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     get:
       summary: Get group
       tags:
@@ -135,13 +84,9 @@ paths:
           schema:
             $ref: '#/definitions/Group'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     patch:
       summary: Partially update group
       parameters:
@@ -158,29 +103,17 @@ paths:
           schema:
             $ref: '#/definitions/Group'
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/400BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         409:
-          description: Conflict
-          schema: 
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/409Conflict'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     post:
       summary: Create group
       parameters:
@@ -193,32 +126,17 @@ paths:
         - Groups
       responses:
         201:
-          description: Created
-          headers:
-            Location:
-              description: The URL of the successfully created group. (This URL)
-              type: string
-              format: URL
+          $ref: '#/responses/201Created'
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/400BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         409:
-          description: Conflict
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/409Conflict'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     put:
       summary: Update group
       parameters:
@@ -235,26 +153,16 @@ paths:
           schema:
             $ref: '#/definitions/Group'
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/400BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         409:
-          description: Conflict
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/409Conflict'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
- 
+          $ref: '#/responses/5xxDefault'
+
   /groups/{name}/permissions:
     parameters:
       - name: name
@@ -269,21 +177,13 @@ paths:
         204:
           description: Success (no content)
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     get:
       summary: Get group
       tags:
@@ -296,13 +196,9 @@ paths:
             items:
               $ref: '#/definitions/Permission'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     post:
       summary: Create group
       parameters:
@@ -317,26 +213,16 @@ paths:
         201:
           description: Created
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/400BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         409:
-          description: Conflict
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/409Conflict'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-            
+          $ref: '#/responses/5xxDefault'
+
   /groups/{name}/videos:
     parameters:
       - name: name
@@ -351,23 +237,15 @@ paths:
         - Admin
       responses:
         204:
-          description: Success (no content)
+          $ref: '#/responses/204NoContent'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     get:
       summary: Get group videos
       tags:
@@ -381,13 +259,9 @@ paths:
             items:
               $ref: '#/definitions/Video'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     post:
       summary: Create group video
       parameters:
@@ -401,28 +275,18 @@ paths:
         - Videos
       responses:
         201:
-          description: Created
+          $ref: '#/responses/201Created'
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/400BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         409:
-          description: Conflict
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/409Conflict'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-            
+          $ref: '#/responses/5xxDefault'
+
   /groups/{name}/users:
     parameters:
       - name: name
@@ -443,13 +307,9 @@ paths:
             items:
               $ref: '#/definitions/User'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unknown Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     post:
       summary: Add a user to a group
       tags:
@@ -458,23 +318,15 @@ paths:
         - Permissions
       responses:
         201:
-          description: Created
+          $ref: '#/responses/201Created'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         404:
-          description: Not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unknown Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
 
   /permissions:
     post:
@@ -483,24 +335,16 @@ paths:
         - Permissions
       responses:
         201:
-          description: Created
+          $ref: '#/responses/201Created'
         400:
-          description: Bad request
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/400BadRequest'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         default:
-          description: Unknown Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-            
+          $ref: '#/responses/5xxDefault'
+
   /permissions/{id}:
     parameters:
       - name: id
@@ -514,19 +358,13 @@ paths:
         - Permissions
       responses:
         204:
-          description: Success (no content)
+          $ref: '#/responses/204NoContent'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden (or not found)
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/403Forbidden'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/5xxDefault'
     get:
       summary: Get permission
       tags:
@@ -537,18 +375,12 @@ paths:
           schema:
             $ref: '#/definitions/Permission'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/401Unauthorized'
         404:
-          description: Not Found (or forbidden)
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-      
+          $ref: '#/responses/5xxDefault'
+
   /users/{username}:
     get:
       summary: User profile information
@@ -568,14 +400,10 @@ paths:
           schema:
             $ref: '#/definitions/User'
         404:
-          description: User not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-  
+          $ref: '#/responses/5xxDefault'
+
   /users/{username}/videos:
     get:
       summary: User profile information
@@ -598,14 +426,10 @@ paths:
             items:
               $ref: '#/definitions/Video'
         404:
-          description: User not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-            
+          $ref: '#/responses/5xxDefault'
+
   /users/{username}/groups:
     get:
       summary: User group information
@@ -626,29 +450,17 @@ paths:
             items:
               $ref: '#/definitions/Group'
         404:
-          description: User not found
-          schema:
-            $ref: '#/definitions/ServerResponse'
+          $ref: '#/responses/404NotFound'
         default:
-          description: Unexpected Error
-          schema:
-            $ref: '#/definitions/ServerResponse'
-            
+          $ref: '#/responses/5xxDefault'
+
   /videos:
-    patch:
-      summary: Partially updates a video
+    get:
+      summary: Get a list of videos
       description: |
-        ### Note: "Try this operation" will not work.
-      consumes:
-        - multipart/related
-        - application/json
-        - video/mp4
-      parameters:
-        - name: Content-Range
-          in: header
-          required: true
-          type: string
+        Get a list of videos
       tags:
+        - Admin
         - Videos
       responses:
         200:
@@ -676,7 +488,104 @@ paths:
         - Videos
       responses:
         201:
-          description: Created
+          $ref: '#/responses/201Created'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        415:
+          $ref: '#/responses/415UnsupportedMediaType'
+        422:
+          $ref: '#/responses/422UnprocessableEntity'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+  /videos/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+        format: UUID
+    delete:
+      summary: Delete a video by id
+      description: |
+        Delete a video by id
+      responses:
+        204:
+          $ref: '#/responses/204NoContent'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+    get:
+      summary: Get a video by id
+      description: |
+        Get a video resource by id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Video'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+    patch:
+      summary: Partially updates a video
+      description: |
+        ### Note: "Try this operation" will not work.
+      consumes:
+        - multipart/related
+        - application/json
+        - video/mp4
+      parameters:
+        - name: Content-Range
+          in: header
+          required: true
+          type: string
+      tags:
+        - Videos
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Video'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        415:
+          $ref: '#/responses/415UnsupportedMediaType'
+        422:
+          $ref: '#/responses/422UnprocessableEntity'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
     put:
       summary: Partially updates a video
       description: |
@@ -695,8 +604,28 @@ paths:
       responses:
         200:
           description: Success
+          schema:
+            $ref: '#/definitions/Video'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        415:
+          $ref: '#/responses/415UnsupportedMediaType'
+        422:
+          $ref: '#/responses/422UnprocessableEntity'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        default:
+          $ref: '#/responses/5xxDefault'
+
+
 responses:
-  Created:
+  201Created:
     description: |
       **Created**. The resource was created and can now be accessed at
       the URL provided in the "Location" header
@@ -707,18 +636,24 @@ responses:
         format: URL
     schema:
       $ref: '#/definitions/ServerResponse'
-      
-  BadRequest:
+
+  204NoContent:
     description: |
-      **Bad request**. The resource was not created because of a syntax
-      error in the request
+      **No content**. The resource was deleted successfully and no longer
+      exists.
+
+  400BadRequest:
+    description: |
+      **Bad request**. The resource was not created, returned or modified
+      because of a syntax error in the request. Typically this is due to
+      malformed JSON or improperly-typed ids.
     schema:
       $ref: '#/definitions/ServerResponse'
-      
-  Unauthorized:
+
+  401Unauthorized:
     description: |
-      **Unauthorized**. The resource was not created because authentication
-      was not provided but is required.
+      **Unauthorized**. The resource was not created, returned or modified
+      because authentication was not provided but is required.
     headers:
       WWW-Authenticate:
         description: The authentication scheme to use to access the entity
@@ -726,6 +661,75 @@ responses:
         format: UTF-8
     schema:
       $ref: '#/definitions/ServerResponse'
+
+  403Forbidden:
+    description: |
+      **Forbidden**. The resource was not created, returned or modified because
+      the authenticated user does not have permissions to create it.
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
+  404NotFound:
+    description: |
+      **Not found**. The resource could not be returned because it was either
+      not found or the authenticated user does not have sufficient permissions
+      to know about its existence.
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
+  409Conflict:
+    description: |
+      **Conflict**. The resource was not created or modified because one or more
+      of its fields conflicts with a unique constraint for the resouce. The
+      problematic fields are named in the "fields" key of the response.
+      It is possible that the field is "id" if the resource already exists.
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
+  415UnsupportedMediaType:
+    description: |
+      **Unsupported media type**. The resource was not created or modified
+      because the request used an unsupported media type.
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
+  422UnprocessableEntity:
+    description: |
+      **Unprocessable entity**. The resource was not created or modified because
+      the request had extraneous, missing or improperly-typed fields. The
+      problematic fields are named in the "fields" key of the response.
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
+  429TooManyRequests:
+    description: |
+      **Too many requests**. The resource was not created, returned or modified
+      because the requesting client has exceeded the rate limit of the API.
+    headers:
+      X-RateLimit-Limit:
+        description: The rate limit ceiling for that particular call
+        type: number
+      X-RateLimit-Remaining:
+        description: The rate limit remaining in a 15 minute window.
+        type: number
+      X-RateLimit-Reset:
+        description: |
+          The UTC Unix epcoh time when the current rate limit window ends
+          and rates reset.
+        type: number
+        format: UTC Unix epoch
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
+  5xxDefault:
+    description: |
+      **Unexpected error**. The action was not performed because the server or
+      network experienced some other error. This error may be handled by a
+      gateway, reverse proxy or load balancer and served as a **5xx** response.
+      An attempt will be made to adhere to the schema when possible.
+    schema:
+      $ref: '#/definitions/ServerResponse'
+
 
 definitions:
   ServerResponse:
@@ -737,16 +741,20 @@ definitions:
       code:
         type: number
         format: HTTP response code
-        description: A serialized representation of the HTTP response code returned in the header
+        description: |
+          A serialized representation of the HTTP response code returned in
+          the header
       message:
         type: string
         format: UTF-8
-        description: A human-readable message describing the reason for the Error
+        description: |
+          A human-readable message describing the reason for the Error
       fields:
         type: array
-        items: 
+        items:
           type: string
-        description: A list of fields that the API believes is causing the Error
+        description: |
+          A list of fields that the API believes is causing the Error
       location:
         type: string
         format: URL
@@ -791,4 +799,3 @@ definitions:
       id:
         type: string
         format: UUID
-    
