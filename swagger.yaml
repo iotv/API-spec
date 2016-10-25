@@ -29,7 +29,14 @@ paths:
             $ref: '#/definitions/Group'
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -126,7 +133,14 @@ paths:
         - Groups
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -211,7 +225,14 @@ paths:
         - Groups
       responses:
         201:
-          description: Created
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -275,7 +296,14 @@ paths:
         - Videos
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -318,7 +346,14 @@ paths:
         - Permissions
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         401:
           $ref: '#/responses/401Unauthorized'
         403:
@@ -335,7 +370,14 @@ paths:
         - Permissions
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -489,7 +531,14 @@ paths:
         - Videos
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -688,7 +737,14 @@ paths:
         - Videos
       responses:
         201:
-          $ref: '#/responses/201Created'
+          description: |
+            **Created**. The resource was created and can now be accessed at
+            the URL provided in the "Location" header
+          headers:
+            Location:
+              description: The URL of the successfully created resource
+              type: string
+              format: URL
         400:
           $ref: '#/responses/400BadRequest'
         401:
@@ -704,18 +760,6 @@ paths:
 
 
 responses:
-  201Created:
-    description: |
-      **Created**. The resource was created and can now be accessed at
-      the URL provided in the "Location" header
-    headers:
-      Location:
-        description: The URL of the successfully created resource
-        type: string
-        format: URL
-    schema:
-      $ref: '#/definitions/ServerResponse'
-
   204NoContent:
     description: |
       **No content**. The resource was deleted successfully and no longer
